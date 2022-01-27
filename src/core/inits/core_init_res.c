@@ -8,8 +8,6 @@
  */
 
 #define INIT_RESOURCE_LIST \
-  X("player_animation", "res/animations/player.animd", RESM_ANIM) \
-  X("guard_animation", "res/animations/guard.animd", RESM_ANIM) \
 
 static int init_resources(void)
 {

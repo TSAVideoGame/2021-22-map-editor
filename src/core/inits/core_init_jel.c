@@ -1,5 +1,3 @@
-#include "anim/anim.h"
-#include "ui/ui.h"
 #include "components/components.h"
 #include "gfx/sprite.h"
 
@@ -12,11 +10,6 @@
 #define INIT_COMPONENT_LIST \
   X(Position) \
   X(Sprite) \
-  X(Physics) \
-  X(AABB) \
-  X(Animation) \
-  X(UI_btn) \
-  X(Guard) \
 
 static int init_components(void)
 {

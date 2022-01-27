@@ -23,10 +23,6 @@ enum RESM_T {
   RESM_SHADER, /* OpenGL shader program */
   RESM_PNG,    /* OpenGL texture */
   RESM_MODEL,  /* OpenGL VAO and VBO */
-
-  RESM_ANIM,   /* Animation */
-  /* Sound */
-  RESM_SFX,    /* Sound effect */
 };
 
 struct RESM_M {

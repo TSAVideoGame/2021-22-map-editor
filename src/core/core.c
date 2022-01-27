@@ -10,9 +10,7 @@
 
 #include <JEL/jel.h>
 #include "../resm/resm.h"
-#include "../snd/snd.h"
 #include "../stm/stm.h"
-
 
 #include "window/window.h"
 #include "env/env.h"
@@ -47,7 +45,6 @@ int JIN_init(void)
 
   /* Libraries */
   LOG(LOG, "Initializing libraries");
-  if (JIN_snd_init())                 ERR_EXIT(0, "Could not initialize Sound");
   if (JEL_init())                     ERR_EXIT(0, "Could not initialize JEL");
 
   /* Singletons */
@@ -55,7 +52,6 @@ int JIN_init(void)
   if (RESM_create(&JIN_resm))                             ERR_EXIT(0, "Could not create a resource manager");
   if (STM_t_create(&JIN_stmt))                            ERR_EXIT(0, "Could not create a state table");
   if (STM_m_create(&JIN_stmm, &JIN_stmt))                 ERR_EXIT(0, "Could not create a state stack");
-  if (JIN_sndbgm_create(&JIN_sndbgm, "res/sounds/title.wav")) ERR_EXIT(0, "Could not create background music");
 
   return 0;
 }
@@ -74,13 +70,11 @@ int JIN_quit(void)
   LOG(LOG, "Quitting core (closing libraries and singletons)");
   JIN_gfx_quit();
   
-  JIN_sndbgm_destroy(&JIN_sndbgm);
   STM_m_destroy(&JIN_stmm);
   STM_t_destroy(&JIN_stmt);
   RESM_destroy(&JIN_resm);
  
   JEL_quit();
-  JIN_snd_quit();
   JIN_logger_quit();
 
   JIN_window_destroy(root);
@@ -122,7 +116,6 @@ void JIN_tick(void)
  */
 int JIN_update(void)
 {
-  JIN_sndbgm_update(&JIN_sndbgm);
   if (JIN_stmm.queued) {
     JIN_stm_switch();
   }
@@ -202,9 +195,9 @@ JIN_THREAD_FN JIN_game_thread(void *data)
 
   JIN_gfx_init();
 
-  JIN_stm_queue("MAIN_MENU", 0);
+  JIN_stm_queue("MUSEUM", 0);
 
-  JIN_sndbgm_play();
+  //JIN_sndbgm_play();
   /* GAME LOOP */
   while (1) {
     if (JIN_input.quit) break;
@@ -235,7 +228,7 @@ int JIN_web_loop(void)
 
   JIN_gfx_init();
   
-  JIN_stm_queue("MAIN_MENU", 0);
+  JIN_stm_queue("MUSEUM", 0);
 
   JIN_sndbgm_play();
   /* GAME LOOP */

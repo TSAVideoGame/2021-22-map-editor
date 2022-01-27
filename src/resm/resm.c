@@ -6,11 +6,6 @@
 /* Graphics */
 #include "gfx/gfx.h"
 
-#include "anim/anim.h"
-
-/* Sound */
-#include "snd/snd.h"
-
 #define GROWTH_FACTOR 2
 #define INITIAL_COUNT 8
 
@@ -93,12 +88,6 @@ void RESM_destroy(struct RESM_M *resm)
       case RESM_MODEL:
         JIN_model_destory(resm->resources[i]);
         break;
-      case RESM_ANIM:
-        JIN_animd_destroy(resm->resources[i]);
-        break;
-      case RESM_SFX:
-        JIN_sndsfx_destroy(resm->resources[i]);
-        break;
     }
 
     free(resm->resources[i]);
@@ -152,14 +141,6 @@ int RESM_add(struct RESM_M *resm, const char *name, const char *fpath, enum RESM
     case RESM_MODEL:
       RES_MALLOC(struct JIN_Model);
       JIN_model_create(resm->resources[resm->count], fpath);
-      break;
-    case RESM_ANIM:
-      RES_MALLOC(struct JIN_Animd);
-      JIN_animd_create(resm->resources[resm->count], fpath);
-      break;
-    case RESM_SFX:
-      RES_MALLOC(struct JIN_Sndsfx);
-      JIN_sndsfx_create(resm->resources[resm->count], fpath);
       break;
   }
 
